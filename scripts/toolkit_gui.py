@@ -662,10 +662,12 @@ def on_ui_tabs():
     """
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
+
         with gr.Row() as load_row:
-            source_dropdown = gr.Dropdown(label="Source", choices=source_list, value=source_list[0], interactive=True)
-            load_button = gr.Button(value='Load', variant="primary")
-            load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
+            img=gr.Image()
+            # source_dropdown = gr.Dropdown(label="Source", choices=source_list, value=source_list[0], interactive=True)
+            # load_button = gr.Button(value='Load', variant="primary")
+            # load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
         with gr.Row(visible=False) as save_row:
             save_name = gr.Textbox(label="Name", interactive=True)
             prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
