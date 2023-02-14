@@ -674,46 +674,46 @@ def on_ui_tabs():
             save_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
         with gr.Row(visible=False) as error_row:
             error_md = gr.Markdown(elem_id="errormd", value="")
-        with gr.Tab("Basic"):
-            with gr.Column(variant="compact"):
-                basic_report_md = gr.Markdown(elem_id="reportmd", value="")
-        with gr.Tab("Advanced"):
-            with gr.Column(variant="panel"):
-                gr.HTML(value='<h1 class="gr-button-lg float-text">Component</h1><p class="float-text-p"><i>Select a component class or specific component.</i></p>')
-                with gr.Row():
-                    arch_dropdown = gr.Dropdown(label="Architecture", choices=[], interactive=True)
-                    class_dropdown = gr.Dropdown(label="Class", choices=[], interactive=True)
-                    comp_dropdown = gr.Dropdown(label="Component", choices=[], interactive=True)
-                gr.HTML(value='<h1 class="gr-button-lg float-text">Action</h1><p class="float-text-p"><i>Replace or save the selected component.</i></p>')
-                with gr.Row():
-                    import_dropdown = gr.Dropdown(label="File", choices=name_list, value=name_list[0], interactive=True)
-                    import_button = gr.Button(elem_id="smallbutton", value='Import')
-                    export_name = gr.Textbox(label="Name", interactive=True)
-                    export_button = gr.Button(elem_id="smallbutton", value='Export')
-            with gr.Row(variant="compact"):
-                adv_report_md = gr.Markdown(elem_id="reportmd", value="")
+        # with gr.Tab("Basic"):
+        #     with gr.Column(variant="compact"):
+        #         basic_report_md = gr.Markdown(elem_id="reportmd", value="")
+        # with gr.Tab("Advanced"):
+        #     with gr.Column(variant="panel"):
+        #         gr.HTML(value='<h1 class="gr-button-lg float-text">Component</h1><p class="float-text-p"><i>Select a component class or specific component.</i></p>')
+        #         with gr.Row():
+        #             arch_dropdown = gr.Dropdown(label="Architecture", choices=[], interactive=True)
+        #             class_dropdown = gr.Dropdown(label="Class", choices=[], interactive=True)
+        #             comp_dropdown = gr.Dropdown(label="Component", choices=[], interactive=True)
+        #         gr.HTML(value='<h1 class="gr-button-lg float-text">Action</h1><p class="float-text-p"><i>Replace or save the selected component.</i></p>')
+        #         with gr.Row():
+        #             import_dropdown = gr.Dropdown(label="File", choices=name_list, value=name_list[0], interactive=True)
+        #             import_button = gr.Button(elem_id="smallbutton", value='Import')
+        #             export_name = gr.Textbox(label="Name", interactive=True)
+        #             export_button = gr.Button(elem_id="smallbutton", value='Export')
+        #     with gr.Row(variant="compact"):
+        #         adv_report_md = gr.Markdown(elem_id="reportmd", value="")
 
-        reports = [basic_report_md, adv_report_md]
-        sources = [source_dropdown, import_dropdown]
-        drops = [arch_dropdown, class_dropdown, comp_dropdown]
-        rows = [load_row, save_row]
-        error = [error_md, error_row]
-        names = [save_name, export_name]
+        # reports = [basic_report_md, adv_report_md]
+        # sources = [source_dropdown, import_dropdown]
+        # drops = [arch_dropdown, class_dropdown, comp_dropdown]
+        # rows = [load_row, save_row]
+        # error = [error_md, error_row]
+        # names = [save_name, export_name]
 
-        everything = reports + sources + drops + rows + names + error
+        # everything = reports + sources + drops + rows + names + error
 
-        load_button.click(fn=do_load, inputs=[source_dropdown, prec_dropdown], outputs=everything)
-        clear_button.click(fn=do_clear, inputs=[], outputs=everything)
-        load_refresh_button.click(fn=do_refresh, inputs=[], outputs=[source_dropdown, import_dropdown])
-        save_refresh_button.click(fn=do_refresh, inputs=[], outputs=[source_dropdown, import_dropdown])
-        prec_dropdown.change(fn=do_report, inputs=[prec_dropdown], outputs=reports)
-        arch_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        class_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        comp_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        save_button.click(fn=do_save, inputs=[save_name, prec_dropdown], outputs=everything)
+        # load_button.click(fn=do_load, inputs=[source_dropdown, prec_dropdown], outputs=everything)
+        # clear_button.click(fn=do_clear, inputs=[], outputs=everything)
+        # load_refresh_button.click(fn=do_refresh, inputs=[], outputs=[source_dropdown, import_dropdown])
+        # save_refresh_button.click(fn=do_refresh, inputs=[], outputs=[source_dropdown, import_dropdown])
+        # prec_dropdown.change(fn=do_report, inputs=[prec_dropdown], outputs=reports)
+        # arch_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
+        # class_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
+        # comp_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
+        # save_button.click(fn=do_save, inputs=[save_name, prec_dropdown], outputs=everything)
 
-        export_button.click(fn=do_export, inputs=drops+[export_name], outputs=drops + [export_name] + error)
-        import_button.click(fn=do_import, inputs=drops+[import_dropdown, prec_dropdown], outputs=everything)
+        # export_button.click(fn=do_export, inputs=drops+[export_name], outputs=drops + [export_name] + error)
+        # import_button.click(fn=do_import, inputs=drops+[import_dropdown, prec_dropdown], outputs=everything)
 
 
     return (image_label, "Label", "image_label"),
