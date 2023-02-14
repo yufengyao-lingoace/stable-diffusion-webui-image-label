@@ -664,7 +664,8 @@ def on_ui_tabs():
         gr.HTML(value=f"<style>{css}</style>")
 
         with gr.Row() as load_row:
-            img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
+            image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
+            # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
             # source_dropdown = gr.Dropdown(label="Source", choices=source_list, value=source_list[0], interactive=True)
             # load_button = gr.Button(value='Load', variant="primary")
             # load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
