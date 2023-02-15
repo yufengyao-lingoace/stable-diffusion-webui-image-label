@@ -50,8 +50,8 @@ def on_ui_tabs():
         .dark .gr-compact { margin-left: unset } #image {height:30em;} #save_button {height:6.5em;} #load_button{height:3.7em;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
-    root, dirs, files = os.walk(data_folder)
-    print(dirs)
+    for root, dirs, files in os.walk(data_folder):
+        print(dirs)
     files = os.listdir(label_folder)
     label_images = [os.path.join(label_folder, f) for f in files]
 
