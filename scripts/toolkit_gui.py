@@ -663,13 +663,13 @@ def on_ui_tabs():
     folder="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
     files=os.listdir(folder)
     files=[os.path.join(folder,f) for f in files]
-    print(files)
+    # print(files)
     
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
 
         with gr.Row() as load_row:
-            img = gr.Image(files[1],elem_id="image")
+            img = gr.Image(files[0],elem_id="image")
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
@@ -677,9 +677,8 @@ def on_ui_tabs():
             # load_button = gr.Button(value='Load', variant="primary")
             # load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
         with gr.Row():
-            id_part="txt"
             with gr.Column(scale=4):
-                prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
+                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Save', variant="primary",elem_id="save_button")
         # with gr.Row(visible=False) as save_row:
