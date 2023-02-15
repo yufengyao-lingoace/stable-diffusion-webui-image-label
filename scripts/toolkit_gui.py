@@ -533,7 +533,8 @@ def do_save_0(save_name, precision):
     updates = reports + sources + drops + rows + names + error
     return updates
 
-def do_save(prompt, precision):
+def do_save(prompt, img):
+    img.value="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410"
     reports = [gr.update(), gr.update()]
     sources = [gr.update(), gr.update()]
     drops = [gr.update() for _ in range(3)]
@@ -678,8 +679,6 @@ def on_ui_tabs():
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row() as load_row:
             img = gr.Image(value=files[3],elem_id="image")
-            img.value=files[0]
-            img.render()
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
@@ -735,7 +734,7 @@ def on_ui_tabs():
         # arch_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # class_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # comp_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        save_button.click(fn=do_save, inputs=[prompt], outputs=[])
+        save_button.click(fn=do_save, inputs=[prompt,img], outputs=[])
 
         # export_button.click(fn=do_export, inputs=drops+[export_name], outputs=drops + [export_name] + error)
         # import_button.click(fn=do_import, inputs=drops+[import_dropdown, prec_dropdown], outputs=everything)
