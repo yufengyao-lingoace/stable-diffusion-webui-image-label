@@ -9,8 +9,9 @@ import cv2
 from toolkit import *
 
 data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data"
-label_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
-label_images = []
+label_folders=[]
+# label_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
+label_images = {}
 
 
 def do_clear():
@@ -36,6 +37,8 @@ def do_save(prompt):
 
 
 def do_load(prompt):
+    # if len(label_images.items())==0:
+    #     files = os.listdir(label_folder)
     img_file = label_images.pop()
     img_file = None if img_file == "" else img_file
     return img_file
@@ -43,6 +46,7 @@ def do_load(prompt):
 
 def on_ui_tabs():
     global label_images
+    global label_folders
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
@@ -51,16 +55,17 @@ def on_ui_tabs():
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
     for root, dirs, files in os.walk(data_folder):
-        print(dirs)
-    files = os.listdir(label_folder)
-    label_images = [os.path.join(label_folder, f) for f in files]
+        if len(dirs)>0:
+            label_folders=dirs
+    # files = os.listdir(label_folder)
+    # label_images = [os.path.join(label_folder, f) for f in files]
 
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row():
             with gr.Column(scale=4):
                 with gr.Row():
-                    comp_dropdown = gr.Dropdown(label="Dataset", choices=dirs, interactive=True)
+                    comp_dropdown = gr.Dropdown(label="Dataset", choices=label_folders, interactive=True)
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001', '002', '003', '004', '005', '006', '007', '008', '009', '010'], interactive=True)
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary", elem_id="load_button")
