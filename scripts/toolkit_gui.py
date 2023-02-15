@@ -659,7 +659,7 @@ def on_ui_tabs():
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
         #reportmd { padding: 1rem; } .dark #reportmd thead { color: #daddd8 } .gr-prose hr { margin-bottom: 0.5rem } #reportmd ul { margin-top: 0rem; margin-bottom: 0rem; } #reportmd li { margin-top: 0rem; margin-bottom: 0rem; }
-        .dark .gr-compact { margin-left: unset } #image {htight:100rem;}
+        .dark .gr-compact { margin-left: unset } #image {height:100rem;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
     pic = os.path.join(os.path.dirname(__file__), "data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg")
@@ -669,7 +669,7 @@ def on_ui_tabs():
         with gr.Row() as load_row:
             tabname=""
             # gr.Image(source="")
-            img = gr.Image("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg",elem_id="image")
+            img = gr.Image("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg",elem_id="image",shape=(500,500))
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
