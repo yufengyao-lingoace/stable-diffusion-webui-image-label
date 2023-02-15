@@ -538,6 +538,7 @@ def do_save(prompt):
     # gr.update(value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg")
     # img=gr.Image(f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg",elem_id="image")
     # img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
+    error = ""
     reports = [gr.update(), gr.update()]
     sources = [gr.update(), gr.update()]
     drops = [gr.update() for _ in range(3)]
