@@ -653,6 +653,8 @@ def do_import(drop_arch, drop_class, drop_comp, import_drop, precision):
 
 def on_ui_tabs():
     # get_lists()
+    files=os.listdir("data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img")
+    print(files)
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
@@ -676,8 +678,10 @@ def on_ui_tabs():
             # load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
         with gr.Row():
             id_part="txt"
-            prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
-            save_button = gr.Button(value='Save', variant="primary")
+            with gr.Column(scale=4):
+                prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
+            with gr.Column(scale=1):
+                save_button = gr.Button(value='Save', variant="primary")
         # with gr.Row(visible=False) as save_row:
         #     save_name = gr.Textbox(label="Name", interactive=True)
         #     prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
