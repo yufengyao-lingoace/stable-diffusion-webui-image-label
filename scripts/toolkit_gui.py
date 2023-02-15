@@ -662,6 +662,7 @@ def on_ui_tabs():
     # get_lists()
     folder="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
     files=os.listdir(folder)
+    files=[os.path.join(folder,f) for f in files]
     print(files)
     
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
