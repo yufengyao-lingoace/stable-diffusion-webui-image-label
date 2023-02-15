@@ -534,21 +534,22 @@ def do_save_0(save_name, precision):
     return updates
 
 def do_save(prompt):
-    global file_value
-    file_value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg"
-    # gr.update(value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg")
-    # img=gr.Image(f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg",elem_id="image")
-    # img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
-    error = ""
-    reports = [gr.update(), gr.update()]
-    sources = [gr.update(), gr.update()]
-    drops = [gr.update() for _ in range(3)]
-    rows = [gr.update(), gr.update()]
-    names = [gr.update(), gr.update()]
-    error = [gr.update(value=error), gr.update(visible=not not error)]
+    return f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410.jpg"
+    # global file_value
+    # file_value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410.jpg"
+    # # gr.update(value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg")
+    # # img=gr.Image(f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg",elem_id="image")
+    # # img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
+    # error = ""
+    # reports = [gr.update(), gr.update()]
+    # sources = [gr.update(), gr.update()]
+    # drops = [gr.update() for _ in range(3)]
+    # rows = [gr.update(), gr.update()]
+    # names = [gr.update(), gr.update()]
+    # error = [gr.update(value=error), gr.update(visible=not not error)]
 
-    updates = reports + sources + drops + rows + names + error
-    return updates
+    # updates = reports + sources + drops + rows + names + error
+    # return updates
 
 def do_export(drop_arch, drop_class, drop_comp, export_name):
     error = ""
@@ -696,7 +697,7 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Save', variant="primary",elem_id="save_button")
-                save_button.click(fn=do_save, inputs=[prompt], outputs=[])
+                save_button.click(fn=do_save, inputs=prompt, outputs=img)
         # with gr.Row(visible=False) as save_row:
         #     save_name = gr.Textbox(label="Name", interactive=True)
         #     prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
