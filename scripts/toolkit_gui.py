@@ -17,7 +17,7 @@ def do_save(prompt,dataset_name,user_name):
 
     #取下一张
     img_file = data_sets[dataset_name].pop()
-    return img_file
+    return img_file,img_file
 
 def do_load(dataset_name):
     if not dataset_name in data_sets.keys():
@@ -26,7 +26,8 @@ def do_load(dataset_name):
         label_images = [os.path.join(img_folder, f) for f in files]
         data_sets[dataset_name]=label_images
     img_file = data_sets[dataset_name].pop()
-    return img_file
+
+    return img_file,img_file
 
 
 def on_ui_tabs():
@@ -51,7 +52,8 @@ def on_ui_tabs():
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001', '002', '003', '004', '005', '006', '007', '008', '009', '010'], interactive=True)
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary", elem_id="load_button")
-
+        with gr.Row():
+            label=gr.Label()
         with gr.Row() as load_row:
             image = gr.Image(elem_id="image",type="pil")
         with gr.Row():
@@ -59,8 +61,8 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
-        next_button.click(fn=do_save, inputs=[prompt,dataset_dropdown,user_dropdown,image], outputs=image)
-        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=image)
+        next_button.click(fn=do_save, inputs=[prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
+        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
