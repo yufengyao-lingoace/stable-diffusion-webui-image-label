@@ -735,4 +735,4 @@ script_callbacks.on_ui_settings(on_ui_settings)
 
 script_callbacks.on_ui_tabs(on_ui_tabs)
 
-load_components(os.path.join(sys.path[0], "components"))
+# load_components(os.path.join(sys.path[0], "components"))
