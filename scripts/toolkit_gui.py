@@ -9,13 +9,15 @@ import cv2
 from toolkit import *
 
 data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data" #/data文件夹
-data_sets={}
-label_folders=[] #[tigo,img]
-user_info={} 
-label_images = {}
+data_sets={} # 数据集实体{tigo:[],img:[]}
+label_folders=[] #数据集名称 [tigo,img]
 
 
-def do_save(prompt,dataset_name,user_name):
+
+def do_save(img_file,prompt,dataset_name,user_name):
+    #保存
+    
+    #取下一张
     img_file = data_sets[dataset_name].pop()
     return img_file
 
@@ -30,7 +32,6 @@ def do_load(dataset_name):
 
 
 def on_ui_tabs():
-    global label_images
     global label_folders
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
@@ -48,7 +49,7 @@ def on_ui_tabs():
         with gr.Row():
             with gr.Column(scale=4):
                 with gr.Row():
-                    comp_dropdown = gr.Dropdown(label="Dataset", choices=label_folders, interactive=True)
+                    dataset_dropdown = gr.Dropdown(label="Dataset", choices=label_folders, interactive=True)
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001', '002', '003', '004', '005', '006', '007', '008', '009', '010'], interactive=True)
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary", elem_id="load_button")
@@ -57,11 +58,11 @@ def on_ui_tabs():
             img = gr.Image(elem_id="image")
         with gr.Row():
             with gr.Column(scale=4):
-                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to save and jump to next)")
+                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
-        next_button.click(fn=do_save, inputs=[prompt,comp_dropdown,user_dropdown], outputs=img)
-        load_button.click(fn=do_load, inputs=comp_dropdown, outputs=img)
+        next_button.click(fn=do_save, inputs=[img,prompt,dataset_dropdown,user_dropdown], outputs=img)
+        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=img)
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
