@@ -500,7 +500,7 @@ def do_report(precision):
 
     return [gr.update(value=v) for v in values]
 
-def do_save(save_name, precision):
+def do_save_0(save_name, precision):
     dont_half = "FP32" in precision
     keep_ema = False
 
@@ -523,6 +523,17 @@ def do_save(save_name, precision):
         error = f"### ERROR: Model is empty!\n----"
     del model
 
+    reports = [gr.update(), gr.update()]
+    sources = [gr.update(), gr.update()]
+    drops = [gr.update() for _ in range(3)]
+    rows = [gr.update(), gr.update()]
+    names = [gr.update(), gr.update()]
+    error = [gr.update(value=error), gr.update(visible=not not error)]
+
+    updates = reports + sources + drops + rows + names + error
+    return updates
+
+def do_save(prompt, precision):
     reports = [gr.update(), gr.update()]
     sources = [gr.update(), gr.update()]
     drops = [gr.update() for _ in range(3)]
@@ -667,6 +678,7 @@ def on_ui_tabs():
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row() as load_row:
             img = gr.Image(value=files[3],elem_id="image")
+            img.value=files[0]
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
@@ -722,7 +734,7 @@ def on_ui_tabs():
         # arch_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # class_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # comp_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        # save_button.click(fn=do_save, inputs=[save_name, prec_dropdown], outputs=everything)
+        save_button.click(fn=do_save, inputs=[prompt], outputs=[])
 
         # export_button.click(fn=do_export, inputs=drops+[export_name], outputs=drops + [export_name] + error)
         # import_button.click(fn=do_import, inputs=drops+[import_dropdown, prec_dropdown], outputs=everything)
