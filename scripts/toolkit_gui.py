@@ -46,7 +46,7 @@ def on_ui_tabs():
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row():
             comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
-            txt_user=gr.Textbox(placeholder="What is your name?")
+            txt_user=gr.Textbox(value="User Name",placeholder="What is your name?")
             load_button = gr.Button(value='Load', variant="primary",elem_id="load_button")
         with gr.Row() as load_row:
             img = gr.Image(value=file_value,elem_id="image")
