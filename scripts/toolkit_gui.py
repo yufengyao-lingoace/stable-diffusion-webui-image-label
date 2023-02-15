@@ -534,7 +534,8 @@ def do_save_0(save_name, precision):
     return updates
 
 def do_save(prompt, img):
-    img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
+    img=gr.Image("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410",elem_id="image")
+    # img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
     reports = [gr.update(), gr.update()]
     sources = [gr.update(), gr.update()]
     drops = [gr.update() for _ in range(3)]
