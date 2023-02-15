@@ -734,7 +734,7 @@ def on_ui_tabs():
         # arch_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # class_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # comp_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        save_button.click(fn=do_save, inputs=[prompt,img], outputs=[])
+        # save_button.click(fn=do_save, inputs=[prompt,img], outputs=[])
 
         # export_button.click(fn=do_export, inputs=drops+[export_name], outputs=drops + [export_name] + error)
         # import_button.click(fn=do_import, inputs=drops+[import_dropdown, prec_dropdown], outputs=everything)
