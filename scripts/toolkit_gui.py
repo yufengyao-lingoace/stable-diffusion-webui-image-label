@@ -29,10 +29,12 @@ def do_clear():
 
 def do_save(prompt):
     img_file=label_images.pop()
+    img_file=None if img_file=="" else img_file
     return img_file
 
 def do_load(prompt):
     img_file=label_images.pop()
+    img_file=None if img_file=="" else img_file
     return img_file
 
 def on_ui_tabs():
