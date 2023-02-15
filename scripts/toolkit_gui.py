@@ -20,9 +20,9 @@ def do_save(prompt):
     return img_file
 
 
-def do_select(prompt):
+# def do_select(prompt):
     
-    return prompt
+#     return prompt
 
 def do_load(prompt):
     # if len(label_images.items())==0:
@@ -66,8 +66,8 @@ def on_ui_tabs():
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
         save_button.click(fn=do_save, inputs=prompt, outputs=img)
-        load_button.click(fn=do_load, inputs=None, outputs=img)
-        # comp_dropdown.change(fn=do_select,inputs=label_folders,outputs=label_folders)
+        load_button.click(fn=do_load, inputs=comp_dropdown, outputs=img)
+        # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
 
