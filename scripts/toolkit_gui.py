@@ -67,7 +67,7 @@ def on_ui_tabs():
                 save_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
         save_button.click(fn=do_save, inputs=prompt, outputs=img)
         load_button.click(fn=do_load, inputs=None, outputs=img)
-        comp_dropdown.change(fn=do_select,inputs=label_folders,outputs=label_folders)
+        # comp_dropdown.change(fn=do_select,inputs=label_folders,outputs=label_folders)
 
     return (image_label, "Label", "image_label"),
 
