@@ -8,26 +8,10 @@ import gc
 import cv2
 from toolkit import *
 
-data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data"
-label_folders=[]
-# label_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
+data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data" #/data文件夹
+label_folders=[] #[tigo,img]
+user_info={} 
 label_images = {}
-
-
-def do_clear():
-    global loaded
-    loaded = None
-    gc.collect()
-
-    reports = [gr.update(value=""), gr.update(value="")]
-    sources = [gr.update(), gr.update()]
-    drops = [gr.update(choices=[], value="") for _ in range(3)]
-    rows = [gr.update(visible=True), gr.update(visible=False)]
-    names = [gr.update(value=""), gr.update()]
-    error = [gr.update(value=""), gr.update(visible=False)]
-
-    updates = reports + sources + drops + rows + names + error
-    return updates
 
 
 def do_save(prompt):
@@ -35,6 +19,10 @@ def do_save(prompt):
     img_file = None if img_file == "" else img_file
     return img_file
 
+
+def do_select(prompt):
+    
+    return prompt
 
 def do_load(prompt):
     # if len(label_images.items())==0:
@@ -79,6 +67,7 @@ def on_ui_tabs():
                 save_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
         save_button.click(fn=do_save, inputs=prompt, outputs=img)
         load_button.click(fn=do_load, inputs=None, outputs=img)
+        comp_dropdown.change(fn=do_select,inputs=label_folders,outputs=label_folders)
 
     return (image_label, "Label", "image_label"),
 
