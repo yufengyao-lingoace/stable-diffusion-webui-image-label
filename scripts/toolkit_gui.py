@@ -533,8 +533,9 @@ def do_save_0(save_name, precision):
     updates = reports + sources + drops + rows + names + error
     return updates
 
-def do_save(prompt, img):
-    gr.update(value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg")
+def do_save(prompt):
+    file_value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg"
+    # gr.update(value=f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg")
     # img=gr.Image(f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1b73719-3d4f-4eb2-88dc-11c2cca88a7e.jpg",elem_id="image")
     # img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
     reports = [gr.update(), gr.update()]
@@ -665,6 +666,7 @@ def do_import(drop_arch, drop_class, drop_comp, import_drop, precision):
     updates = reports + sources + drops + rows + names + error
     return updates
 
+file_value=""
 def on_ui_tabs():
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
@@ -676,11 +678,11 @@ def on_ui_tabs():
     folder="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
     files=os.listdir(folder)
     files=[os.path.join(folder,f) for f in files]
-    
+    file_value=files[0]
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row() as load_row:
-            img = gr.Image(value=files[0],elem_id="image")
+            img = gr.Image(value=file_value,elem_id="image")
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
@@ -692,7 +694,7 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Save', variant="primary",elem_id="save_button")
-                save_button.click(fn=do_save, inputs=[prompt,img], outputs=[])
+                save_button.click(fn=do_save, inputs=[prompt], outputs=[])
         # with gr.Row(visible=False) as save_row:
         #     save_name = gr.Textbox(label="Name", interactive=True)
         #     prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
