@@ -9,6 +9,7 @@ import cv2
 from toolkit import *
 
 data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data" #/data文件夹
+data_sets={}
 label_folders=[] #[tigo,img]
 user_info={} 
 label_images = {}
@@ -24,11 +25,14 @@ def do_save(prompt):
     
 #     return prompt
 
-def do_load(prompt):
-    # if len(label_images.items())==0:
-    #     files = os.listdir(label_folder)
-    img_file = label_images.pop()
-    img_file = None if img_file == "" else img_file
+def do_load(dataset_name):
+    if not data_sets[dataset_name]:
+        img_folder=os.path.join(data_folder,dataset_name)
+        files = os.listdir(img_folder) #枚举单个数据集中的所有图片
+        label_images = [os.path.join(img_folder, f) for f in files]
+        data_sets[dataset_name]=label_images
+    else:
+        img_file = data_sets[dataset_name].pop()
     return img_file
 
 
