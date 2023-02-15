@@ -18,6 +18,7 @@ def save_label():
 
 def do_save(file_name,prompt,dataset_name,user_name):
     #保存
+    print(label_set[dataset_name])
     label_set[dataset_name][file_name]=prompt
     #取下一张
     img_file = data_sets[dataset_name].pop()
