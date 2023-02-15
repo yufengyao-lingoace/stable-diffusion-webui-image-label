@@ -53,7 +53,7 @@ def on_ui_tabs():
                 load_button = gr.Button(value="Load", variant="primary", elem_id="load_button")
 
         with gr.Row() as load_row:
-            image = gr.Image(elem_id="image")
+            image = gr.Image(elem_id="image",type="pil")
         with gr.Row():
             with gr.Column(scale=4):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
