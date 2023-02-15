@@ -35,7 +35,7 @@ def on_ui_tabs():
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
         #reportmd { padding: 1rem; } .dark #reportmd thead { color: #daddd8 } .gr-prose hr { margin-bottom: 0.5rem } #reportmd ul { margin-top: 0rem; margin-bottom: 0rem; } #reportmd li { margin-top: 0rem; margin-bottom: 0rem; }
-        .dark .gr-compact { margin-left: unset } #image {height:30em;} #save_button {height:6.5em;}
+        .dark .gr-compact { margin-left: unset } #image {height:30em;} #save_button {height:6.5em;} #load_button{height:2em;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
 
@@ -49,7 +49,6 @@ def on_ui_tabs():
                 with gr.Row():
                     comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
-            # txt_user=gr.Textbox(placeholder="What is your name?")
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
         with gr.Row() as load_row:
