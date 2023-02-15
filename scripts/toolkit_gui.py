@@ -690,6 +690,7 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Save', variant="primary",elem_id="save_button")
+                save_button.click(fn=do_save, inputs=[prompt,img], outputs=[])
         # with gr.Row(visible=False) as save_row:
         #     save_name = gr.Textbox(label="Name", interactive=True)
         #     prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
@@ -734,7 +735,7 @@ def on_ui_tabs():
         # arch_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # class_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
         # comp_dropdown.change(fn=do_select, inputs=drops, outputs=drops + [export_name])
-        # save_button.click(fn=do_save, inputs=[prompt,img], outputs=[])
+        
 
         # export_button.click(fn=do_export, inputs=drops+[export_name], outputs=drops + [export_name] + error)
         # import_button.click(fn=do_import, inputs=drops+[import_dropdown, prec_dropdown], outputs=everything)
