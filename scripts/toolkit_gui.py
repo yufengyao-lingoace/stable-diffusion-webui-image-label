@@ -46,8 +46,9 @@ def on_ui_tabs():
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row():
             with gr.Column(scale=4):
-                comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
-                user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
+                with gr.Row():
+                    comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
+                    user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
             # txt_user=gr.Textbox(placeholder="What is your name?")
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
