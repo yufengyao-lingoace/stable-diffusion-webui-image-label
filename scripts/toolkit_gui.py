@@ -18,8 +18,9 @@ def save_label():
 
 def do_save(file_name,prompt,dataset_name,user_name):
     #保存
-    print(label_set[dataset_name])
-    label_set[dataset_name][file_name]=prompt
+    # print(label_set[dataset_name])
+    label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
+    print(label_set)
     #取下一张
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
@@ -48,7 +49,7 @@ def on_ui_tabs():
         if len(dirs)>0:
             label_folders=dirs
             for dir in dirs:
-                label_set[dir]={} #{tigo:{},img:{}}  标记集初始化
+                label_set[dir]=[] #{tigo:[],img:[]}  标记集初始化
 
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
