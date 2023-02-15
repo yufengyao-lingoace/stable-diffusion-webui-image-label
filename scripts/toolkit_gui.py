@@ -45,10 +45,12 @@ def on_ui_tabs():
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row():
-            comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
-            user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
+            with gr.Column(scale=4):
+                comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
+                user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
             # txt_user=gr.Textbox(placeholder="What is your name?")
-            load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
+            with gr.Column(scale=1):
+                load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
         with gr.Row() as load_row:
             img = gr.Image(value=file_value,elem_id="image")
         with gr.Row():
