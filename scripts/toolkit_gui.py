@@ -26,7 +26,7 @@ def do_save(prompt):
 #     return prompt
 
 def do_load(dataset_name):
-    if not data_sets[dataset_name]:
+    if not dataset_name in data_sets.keys():
         img_folder=os.path.join(data_folder,dataset_name)
         files = os.listdir(img_folder) #枚举单个数据集中的所有图片
         label_images = [os.path.join(img_folder, f) for f in files]
