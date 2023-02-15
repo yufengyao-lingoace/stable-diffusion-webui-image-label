@@ -51,7 +51,7 @@ def on_ui_tabs():
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
     root, dirs, files = os.walk(data_folder)
-    print(os.walk(data_folder))
+    print(dirs)
     files = os.listdir(label_folder)
     label_images = [os.path.join(label_folder, f) for f in files]
 
