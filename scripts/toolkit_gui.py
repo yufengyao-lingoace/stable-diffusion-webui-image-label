@@ -53,7 +53,7 @@ def on_ui_tabs():
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary", elem_id="load_button")
         with gr.Row():
-            label=gr.Label()
+            label=gr.Label(visible=False)
         with gr.Row() as load_row:
             image = gr.Image(elem_id="image",type="pil")
         with gr.Row():
