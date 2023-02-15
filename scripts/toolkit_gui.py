@@ -31,8 +31,7 @@ def do_load(dataset_name):
         files = os.listdir(img_folder) #枚举单个数据集中的所有图片
         label_images = [os.path.join(img_folder, f) for f in files]
         data_sets[dataset_name]=label_images
-    else:
-        img_file = data_sets[dataset_name].pop()
+    img_file = data_sets[dataset_name].pop()
     return img_file
 
 
