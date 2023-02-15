@@ -17,7 +17,7 @@ def do_save(prompt,dataset_name,user_name):
 
     #取下一张
     img_file = data_sets[dataset_name].pop()
-    return img_file,img_file
+    return img_file,os.path.basename(img_file) 
 
 def do_load(dataset_name):
     if not dataset_name in data_sets.keys():
@@ -27,7 +27,7 @@ def do_load(dataset_name):
         data_sets[dataset_name]=label_images
     img_file = data_sets[dataset_name].pop()
 
-    return img_file,img_file
+    return img_file,os.path.basename(img_file) 
 
 
 def on_ui_tabs():
