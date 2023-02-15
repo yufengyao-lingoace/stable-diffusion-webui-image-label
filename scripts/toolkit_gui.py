@@ -15,15 +15,9 @@ user_info={}
 label_images = {}
 
 
-def do_save(prompt):
-    img_file = label_images.pop()
-    img_file = None if img_file == "" else img_file
+def do_save(prompt,dataset_name,user_name):
+    img_file = data_sets[dataset_name].pop()
     return img_file
-
-
-# def do_select(prompt):
-    
-#     return prompt
 
 def do_load(dataset_name):
     if not dataset_name in data_sets.keys():
@@ -48,8 +42,6 @@ def on_ui_tabs():
     for root, dirs, files in os.walk(data_folder):
         if len(dirs)>0:
             label_folders=dirs
-    # files = os.listdir(label_folder)
-    # label_images = [os.path.join(label_folder, f) for f in files]
 
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
@@ -67,8 +59,8 @@ def on_ui_tabs():
             with gr.Column(scale=4):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to save and jump to next)")
             with gr.Column(scale=1):
-                save_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
-        save_button.click(fn=do_save, inputs=prompt, outputs=img)
+                next_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
+        next_button.click(fn=do_save, inputs=[prompt,comp_dropdown,user_dropdown], outputs=img)
         load_button.click(fn=do_load, inputs=comp_dropdown, outputs=img)
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
