@@ -666,7 +666,7 @@ def on_ui_tabs():
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row() as load_row:
-            img = gr.Image(value=files[0],elem_id="image")
+            img = gr.Image(value=files[3],elem_id="image")
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
