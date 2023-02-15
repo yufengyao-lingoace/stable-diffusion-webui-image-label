@@ -53,14 +53,14 @@ def on_ui_tabs():
                 load_button = gr.Button(value="Load", variant="primary", elem_id="load_button")
 
         with gr.Row() as load_row:
-            img = gr.Image(elem_id="image")
+            image = gr.Image(elem_id="image")
         with gr.Row():
             with gr.Column(scale=4):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
-        next_button.click(fn=do_save, inputs=[prompt,dataset_dropdown,user_dropdown,img.value], outputs=img)
-        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=img)
+        next_button.click(fn=do_save, inputs=[prompt,dataset_dropdown,user_dropdown], outputs=image)
+        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=image)
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
