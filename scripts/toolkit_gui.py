@@ -652,7 +652,7 @@ def do_import(drop_arch, drop_class, drop_comp, import_drop, precision):
     return updates
 
 def on_ui_tabs():
-    get_lists()
+    # get_lists()
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
