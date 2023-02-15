@@ -671,6 +671,10 @@ def on_ui_tabs():
             # source_dropdown = gr.Dropdown(label="Source", choices=source_list, value=source_list[0], interactive=True)
             # load_button = gr.Button(value='Load', variant="primary")
             # load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
+        with gr.Row():
+            id_part="txt"
+            prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
+            save_button = gr.Button(value='Save', variant="primary")
         with gr.Row(visible=False) as save_row:
             save_name = gr.Textbox(label="Name", interactive=True)
             prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
