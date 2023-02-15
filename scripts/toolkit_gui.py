@@ -656,7 +656,7 @@ def on_ui_tabs():
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
         #reportmd { padding: 1rem; } .dark #reportmd thead { color: #daddd8 } .gr-prose hr { margin-bottom: 0.5rem } #reportmd ul { margin-top: 0rem; margin-bottom: 0rem; } #reportmd li { margin-top: 0rem; margin-bottom: 0rem; }
-        .dark .gr-compact { margin-left: unset } #image {height:30em;} #save_button {height:6em}
+        .dark .gr-compact { margin-left: unset } #image {height:30em;} #save_button {height:6em; margin:0 auto;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
     # get_lists()
