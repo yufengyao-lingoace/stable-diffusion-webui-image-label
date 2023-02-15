@@ -28,10 +28,12 @@ def do_clear():
     return updates
 
 def do_save(prompt):
-    return f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410.jpg"
+    img_file=label_images.pop()
+    return img_file
 
 def do_load(prompt):
-    return label_images[3]
+    img_file=label_images.pop()
+    return img_file
 
 def on_ui_tabs():
     global label_images
@@ -62,7 +64,7 @@ def on_ui_tabs():
             with gr.Column(scale=4):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
             with gr.Column(scale=1):
-                save_button = gr.Button(value='Save', variant="primary",elem_id="save_button")
+                save_button = gr.Button(value='Next', variant="primary",elem_id="save_button")
         save_button.click(fn=do_save, inputs=prompt, outputs=img)
         load_button.click(fn=do_load, inputs=None, outputs=img)
 
