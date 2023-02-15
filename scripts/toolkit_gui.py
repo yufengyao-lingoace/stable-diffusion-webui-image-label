@@ -653,7 +653,7 @@ def do_import(drop_arch, drop_class, drop_comp, import_drop, precision):
 
 def on_ui_tabs():
     # get_lists()
-    files=os.listdir("data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img")
+    files=os.listdir("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img")
     print(files)
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
