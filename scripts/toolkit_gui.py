@@ -8,6 +8,7 @@ import gc
 import cv2
 from toolkit import *
 
+data_folder="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data"
 label_folder="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
 label_images=[]
 
@@ -46,7 +47,7 @@ def on_ui_tabs():
         .dark .gr-compact { margin-left: unset } #image {height:30em;} #save_button {height:6.5em;} #load_button{height:3.7em;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
-
+    root,dirs,files=os.walk(data_folder)
     files=os.listdir(label_folder)
     label_images=[os.path.join(label_folder,f) for f in files]
 
@@ -55,7 +56,7 @@ def on_ui_tabs():
         with gr.Row():
             with gr.Column(scale=4):
                 with gr.Row():
-                    comp_dropdown = gr.Dropdown(label="Dataset", choices=['tigo','img'], interactive=True)
+                    comp_dropdown = gr.Dropdown(label="Dataset", choices=dirs, interactive=True)
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
@@ -64,7 +65,7 @@ def on_ui_tabs():
             img = gr.Image(elem_id="image")
         with gr.Row():
             with gr.Column(scale=4):
-                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
+                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to save and jump to next)")
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Next', variant="primary",elem_id="save_button")
         save_button.click(fn=do_save, inputs=prompt, outputs=img)
