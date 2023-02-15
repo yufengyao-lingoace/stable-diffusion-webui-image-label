@@ -12,11 +12,9 @@ data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-im
 data_sets={} # 数据集实体{tigo:[],img:[]}
 label_folders=[] #数据集名称 [tigo,img]
 
-
-
-def do_save(img_file,prompt,dataset_name,user_name):
+def do_save(prompt,dataset_name,user_name):
     #保存
-    
+
     #取下一张
     img_file = data_sets[dataset_name].pop()
     return img_file
@@ -61,7 +59,7 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
-        next_button.click(fn=do_save, inputs=[img,prompt,dataset_dropdown,user_dropdown], outputs=img)
+        next_button.click(fn=do_save, inputs=[prompt,dataset_dropdown,user_dropdown], outputs=img)
         load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=img)
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
