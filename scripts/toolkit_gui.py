@@ -55,7 +55,7 @@ def on_ui_tabs():
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
-                load_button.click(fn=do_load, inputs=None, outputs=img)
+                
         with gr.Row() as load_row:
             img = gr.Image(elem_id="image")
         with gr.Row():
@@ -63,7 +63,8 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
             with gr.Column(scale=1):
                 save_button = gr.Button(value='Save', variant="primary",elem_id="save_button")
-                save_button.click(fn=do_save, inputs=prompt, outputs=img)
+        save_button.click(fn=do_save, inputs=prompt, outputs=img)
+        load_button.click(fn=do_load, inputs=None, outputs=img)
 
     return (image_label, "Label", "image_label"),
 
