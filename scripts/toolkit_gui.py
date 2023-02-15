@@ -660,13 +660,14 @@ def on_ui_tabs():
         .dark .gr-compact { margin-left: unset }
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
+    pic = os.path.join(os.path.dirname(__file__), "data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg")
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
 
         with gr.Row() as load_row:
             tabname=""
             # gr.Image(source="")
-            init_img_inpaint = gr.Image(label="Image for img2img", show_label=False, source="canvas", interactive=True, type="pil", elem_id="img_inpaint_base")
+            init_img_inpaint = gr.Image(label="Image for img2img", show_label=False, source="upload", interactive=True, type="pil", elem_id="img_inpaint_base", value=pic)
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
