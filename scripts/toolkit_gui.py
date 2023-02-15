@@ -30,7 +30,11 @@ def do_clear():
 def do_save(prompt):
     return f"/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410.jpg"
 
+def do_load(prompt):
+    return label_images[3]
+
 def on_ui_tabs():
+    global label_images
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
@@ -40,8 +44,8 @@ def on_ui_tabs():
     """
 
     files=os.listdir(label_folder)
-    files=[os.path.join(label_folder,f) for f in files]
-    file_value=files[0]
+    label_images=[os.path.join(label_folder,f) for f in files]
+
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
         with gr.Row():
@@ -51,8 +55,9 @@ def on_ui_tabs():
                     user_dropdown = gr.Dropdown(label="User Name", choices=['001','002','003','004','005','006','007','008','009','010'], interactive=True)
             with gr.Column(scale=1):
                 load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
+                load_button.click(fn=do_load, inputs=None, outputs=img)
         with gr.Row() as load_row:
-            img = gr.Image(value=file_value,elem_id="image")
+            img = gr.Image(elem_id="image")
         with gr.Row():
             with gr.Column(scale=4):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
