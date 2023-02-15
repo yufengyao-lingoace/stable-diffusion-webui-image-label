@@ -669,7 +669,7 @@ def on_ui_tabs():
         with gr.Row() as load_row:
             tabname=""
             # gr.Image(source="")
-            img = gr.Image("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg")
+            img = gr.Image("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg",shape=(800, 400))
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
