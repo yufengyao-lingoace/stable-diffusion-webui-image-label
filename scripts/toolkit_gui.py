@@ -652,9 +652,6 @@ def do_import(drop_arch, drop_class, drop_comp, import_drop, precision):
     return updates
 
 def on_ui_tabs():
-    # get_lists()
-    files=os.listdir("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img")
-    print(files)
     css = """
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
@@ -662,14 +659,18 @@ def on_ui_tabs():
         .dark .gr-compact { margin-left: unset } #image {height:30em;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
-    pic = os.path.join(os.path.dirname(__file__), "data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg")
+    # get_lists()
+    folder="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img"
+    files=os.listdir(folder)
+    print(files)
+    
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
 
         with gr.Row() as load_row:
             tabname=""
             # gr.Image(source="")
-            img = gr.Image("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg",elem_id="image")
+            img = gr.Image(files[0],elem_id="image")
             # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
