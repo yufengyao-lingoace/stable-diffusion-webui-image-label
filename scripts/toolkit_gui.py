@@ -665,7 +665,8 @@ def on_ui_tabs():
 
         with gr.Row() as load_row:
             tabname=""
-            result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
+            gr.Image(source="")
+            # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
             # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
             # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
             # source_dropdown = gr.Dropdown(label="Source", choices=source_list, value=source_list[0], interactive=True)
@@ -674,7 +675,7 @@ def on_ui_tabs():
         with gr.Row():
             id_part="txt"
             prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
-            save_button = gr.Button(value='Save', variant="primary").style(grid=1)
+            save_button = gr.Button(value='Save', variant="primary")
         # with gr.Row(visible=False) as save_row:
         #     save_name = gr.Textbox(label="Name", interactive=True)
         #     prec_dropdown = gr.Dropdown(elem_id="smalldropdown", label="Precision", choices=["FP16", "FP32"], value="FP16", interactive=True)
