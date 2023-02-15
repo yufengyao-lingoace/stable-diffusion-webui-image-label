@@ -5,7 +5,7 @@ from modules import shared, script_callbacks
 import torch
 import glob
 import gc
-
+import cv2
 from toolkit import *
 
 MODEL_SAVE_PATH = shared.cmd_opts.ckpt_dir or os.path.join("models", "Stable-diffusion")
@@ -534,7 +534,7 @@ def do_save_0(save_name, precision):
     return updates
 
 def do_save(prompt, img):
-    img.value="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410"
+    img=cv2.imread("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/img/f677826d-6d9d-4fe9-975e-840251946410")
     reports = [gr.update(), gr.update()]
     sources = [gr.update(), gr.update()]
     drops = [gr.update() for _ in range(3)]
