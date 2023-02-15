@@ -51,12 +51,6 @@ def on_ui_tabs():
             load_button = gr.Button(value="Load", variant="primary",elem_id="load_button")
         with gr.Row() as load_row:
             img = gr.Image(value=file_value,elem_id="image")
-            # result_gallery = gr.Gallery(label='Output', show_label=False, elem_id=f"{tabname}_gallery").style(grid=4)
-            # image = gr.Image(elem_id="pnginfo_image", label="Source", source="upload", interactive=True, type="pil")
-            # img=gr.Image(type="pil") #value="data/img/e1a8eeba-760d-4528-a3ea-34e578bcb725.jpg"
-            # source_dropdown = gr.Dropdown(label="Source", choices=source_list, value=source_list[0], interactive=True)
-            # load_button = gr.Button(value='Load', variant="primary")
-            # load_refresh_button = gr.Button(elem_id="smallbutton", value="Refresh")
         with gr.Row():
             with gr.Column(scale=4):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Ctrl+Enter or Alt+Enter to generate)")
