@@ -10,11 +10,15 @@ from toolkit import *
 
 data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data" #/data文件夹
 data_sets={} # 数据集实体{tigo:[],img:[]}
+label_set={} #{tigo:{1.jpg:tigo on the hill}}
 label_folders=[] #数据集名称 [tigo,img]
 
-def do_save(prompt,dataset_name,user_name):
-    #保存
+def save_label():
+    pass
 
+def do_save(file_name,prompt,dataset_name,user_name):
+    #保存
+    label_set[dataset_name][file_name]=prompt
     #取下一张
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
@@ -42,6 +46,8 @@ def on_ui_tabs():
     for root, dirs, files in os.walk(data_folder):
         if len(dirs)>0:
             label_folders=dirs
+            for dir in dirs:
+                label_set[dir]={} #{tigo:{},img:{}}  标记集初始化
 
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
@@ -61,7 +67,7 @@ def on_ui_tabs():
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="save_button")
-        next_button.click(fn=do_save, inputs=[prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
+        next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
         load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
