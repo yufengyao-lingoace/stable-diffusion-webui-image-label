@@ -56,7 +56,15 @@ def do_last(file_name,dataset_name,user_name):
     img_file=history[user_name]["data"][index] # tigo/1.jpg
     img_file=os.path.join(data_folder,img_file)
     history[user_name]["index"]-=1
-    return img_file,os.path.basename(img_file) 
+
+    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+        result=json.load(reader)
+    img_file_name=os.path.basename(img_file)
+    if img_file_name in result.keys():
+        prompt_txt=result[img_file_name]
+    else:
+        prompt_txt=""
+    return img_file,img_file_name,prompt_txt
 
 def do_load(dataset_name,user_name):
     if not dataset_name in data_sets.keys():
@@ -121,7 +129,7 @@ def on_ui_tabs():
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
         load_button.click(fn=do_load, inputs=[dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
         pass_button.click(fn=do_pass, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
-        last_button.click(fn=do_last, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
+        last_button.click(fn=do_last, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
