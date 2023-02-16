@@ -24,6 +24,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
     label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
     label_changed=True
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+        print(file_name)
         writer.write(file_name+'\r\n')
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r+') as reader:
         result=json.load(reader)
