@@ -59,7 +59,7 @@ def do_load(dataset_name):
         prompt_txt=result[img_file_name]
     else:
         prompt_txt=""
-
+    print(prompt_txt)
     return img_file,img_file_name,prompt_txt
 
 
