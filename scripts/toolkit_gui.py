@@ -56,10 +56,12 @@ def do_load(dataset_name):
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
         result=json.load(reader)
     if img_file_name in result.keys():
+        print(result)
+        print(img_file_name)
         prompt_txt=result[img_file_name]
     else:
         prompt_txt=""
-    print(prompt_txt)
+    
     return img_file,img_file_name,prompt_txt
 
 
