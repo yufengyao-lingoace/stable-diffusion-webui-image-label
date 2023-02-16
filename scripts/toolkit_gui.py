@@ -25,7 +25,8 @@ def do_save(file_name,prompt,dataset_name,user_name):
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
 
-def do_load(dataset_name):
+def do_load(load_button,dataset_name):
+    load_button.visible=False
     if not dataset_name in data_sets.keys():
         img_folder=os.path.join(data_folder,dataset_name)
         files = os.listdir(img_folder) #枚举单个数据集中的所有图片
@@ -74,7 +75,7 @@ def on_ui_tabs():
             with gr.Column(scale=1,min_width=60):
                 pass_button = gr.Button(value='Pass', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
-        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
+        load_button.click(fn=do_load, inputs=[load_button,dataset_dropdown], outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
