@@ -29,9 +29,9 @@ def do_save(file_name,prompt,dataset_name,user_name):
         writer.write(file_name+'\r\n')
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
         result=json.load(reader)
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as reader:
+    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
         result[file_name]=prompt
-        json.dump(result,reader)
+        json.dump(result,w)
 
     #取下一张
     img_file = data_sets[dataset_name].pop()
