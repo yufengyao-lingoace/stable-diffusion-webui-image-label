@@ -42,7 +42,7 @@ def on_ui_tabs():
         .float-text { float: left; } .float-text-p { float: left; line-height: 2.5rem; } #mediumbutton { max-width: 32rem; } #smalldropdown { max-width: 2rem; } #smallbutton { max-width: 2rem; }
         #toolbutton { max-width: 8em; } #toolsettings > div > div { padding: 0; } #toolsettings { gap: 0.4em; } #toolsettings > div { border: none; background: none; gap: 0.5em; }
         #reportmd { padding: 1rem; } .dark #reportmd thead { color: #daddd8 } .gr-prose hr { margin-bottom: 0.5rem } #reportmd ul { margin-top: 0rem; margin-bottom: 0rem; } #reportmd li { margin-top: 0rem; margin-bottom: 0rem; }
-        .dark .gr-compact { margin-left: unset } #image {height:30em;} #next_button,#previous_button {height:3.7em;} #load_button{height:3.7em;} #txt_prompt {height:9.4em;}
+        .dark .gr-compact { margin-left: unset } #image {height:30em;} #next_button,#previous_button {height:6.5em;} #load_button{height:3.7em;}
         #errormd { min-height: 0rem; text-align: center; } #errormd h3 { color: #ba0000; }
     """
     for root, dirs, files in os.walk(data_folder):
@@ -66,10 +66,10 @@ def on_ui_tabs():
             image = gr.Image(elem_id="image",type="pil")
         with gr.Row():
             with gr.Column(scale=8):
-                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=4, placeholder="Prompt (press Enter to save and jump to next)")
+                prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="next_button")
-            # with gr.Column(scale=1):
+            with gr.Column(scale=1):
                 next_button = gr.Button(value='Previous', variant="primary", elem_id="previous_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
         load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
