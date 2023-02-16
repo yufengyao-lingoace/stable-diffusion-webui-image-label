@@ -14,6 +14,7 @@ data_sets={} # 数据集实体{tigo:[],img:[]}
 label_set={} #{tigo:{1.jpg:tigo on the hill}}
 label_folders=[] #数据集名称 [tigo,img]
 label_changed=False #标注内容是否变化
+history={} #历史记录
 
 def save_label():
     pass
@@ -30,9 +31,10 @@ def do_save(file_name,prompt,dataset_name,user_name):
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
         result[file_name]=prompt
         json.dump(result,w)
-
+    history[user_name]["data"].append("{0}/{1}".format(dataset_name,file_name))#保存历史
     #取下一张
     img_file = data_sets[dataset_name].pop()
+    history[user_name]["index"]+=1
     return img_file,os.path.basename(img_file) 
 
 def do_pass(file_name,dataset_name,user_name):
@@ -42,31 +44,34 @@ def do_pass(file_name,dataset_name,user_name):
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
         writer.write(file_name+'\r\n')
     img_file = data_sets[dataset_name].pop()
+    history[user_name]["index"]+=1
     return img_file,os.path.basename(img_file) 
 
 def do_last(file_name,dataset_name,user_name):
     #保存
     label_changed=False
-    file_name=file_name["label"]
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
-        writer.write(file_name+'\r\n')
-    img_file = data_sets[dataset_name].pop()
+    index=history[user_name]["index"]
+    img_file=history[user_name]["data"][index] # tigo/1.jpg
+    img_file=os.path.join(data_folder,img_file)
+    history[user_name]["index"]-=1
     return img_file,os.path.basename(img_file) 
 
-def do_load(dataset_name):
+def do_load(dataset_name,user_name):
     if not dataset_name in data_sets.keys():
         img_folder=os.path.join(data_folder,dataset_name)
         files = os.listdir(img_folder) #枚举单个数据集中的所有图片
         label_images = [os.path.join(img_folder, f) for f in files]
         data_sets[dataset_name]=label_images
+    if not user_name in history.keys():
+        history[user_name]={"index":0,"data":[]}
     img_file = data_sets[dataset_name].pop()
     img_file_name=os.path.basename(img_file)
 
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
         result=json.load(reader)
     if img_file_name in result.keys():
-        print(result)
-        print(img_file_name)
+        # print(result)
+        # print(img_file_name)
         prompt_txt=result[img_file_name]
     else:
         prompt_txt=""
@@ -110,9 +115,9 @@ def on_ui_tabs():
             with gr.Column(scale=1,min_width=60):
                 last_button = gr.Button(value='上一个', variant="primary", elem_id="previous_button")
             with gr.Column(scale=1,min_width=60):
-                pass_button = gr.Button(value='跳过', variant="primary", elem_id="pass_button")
+                pass_button = gr.Button(value='下一个', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
-        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label,prompt])
+        load_button.click(fn=do_load, inputs=[dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
         pass_button.click(fn=do_pass, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
         last_button.click(fn=do_last, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
