@@ -44,6 +44,15 @@ def do_pass(file_name,dataset_name,user_name):
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
 
+def do_last(file_name,dataset_name,user_name):
+    #保存
+    label_changed=False
+    file_name=file_name["label"]
+    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+        writer.write(file_name+'\r\n')
+    img_file = data_sets[dataset_name].pop()
+    return img_file,os.path.basename(img_file) 
+
 def do_load(dataset_name):
     if not dataset_name in data_sets.keys():
         img_folder=os.path.join(data_folder,dataset_name)
@@ -97,14 +106,15 @@ def on_ui_tabs():
             with gr.Column(scale=7,min_width=750):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1,min_width=60):
-                next_button = gr.Button(value='Save', variant="primary", elem_id="next_button")
+                next_button = gr.Button(value='保存', variant="primary", elem_id="next_button")
             with gr.Column(scale=1,min_width=60):
-                previous_button = gr.Button(value='Previous', variant="primary", elem_id="previous_button")
+                last_button = gr.Button(value='上一个', variant="primary", elem_id="previous_button")
             with gr.Column(scale=1,min_width=60):
-                pass_button = gr.Button(value='Pass', variant="primary", elem_id="pass_button")
+                pass_button = gr.Button(value='跳过', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
         load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label,prompt])
         pass_button.click(fn=do_pass, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
+        last_button.click(fn=do_last, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
