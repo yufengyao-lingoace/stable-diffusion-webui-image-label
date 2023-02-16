@@ -19,9 +19,6 @@ def save_label():
     pass
 
 def do_save(file_name,prompt,dataset_name,user_name):
-    if prompt.trip()=="":
-        return 
-
     label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
     label_changed=True
     file_name=file_name["label"]
@@ -43,14 +40,7 @@ def do_pass(file_name,prompt,dataset_name,user_name):
     label_changed=False
     file_name=file_name["label"]
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
-        # print(file_name) {'label': '8e97165e-57cf-4b6a-b048-41a6c940ad4b.jpg'}
         writer.write(file_name+'\r\n')
-    # with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
-    #     result=json.load(reader)
-    # with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
-    #     result[file_name]=prompt
-    #     json.dump(result,w)
-    #取下一张
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
 
@@ -62,7 +52,7 @@ def do_load(dataset_name):
         data_sets[dataset_name]=label_images
     img_file = data_sets[dataset_name].pop()
 
-    return img_file,os.path.basename(img_file),True
+    return img_file,os.path.basename(img_file) 
 
 
 def on_ui_tabs():
@@ -103,7 +93,7 @@ def on_ui_tabs():
             with gr.Column(scale=1,min_width=60):
                 pass_button = gr.Button(value='Pass', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
-        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label,load_button])
+        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
         pass_button.click(fn=do_pass, inputs=dataset_dropdown, outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
