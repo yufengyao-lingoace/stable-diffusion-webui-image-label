@@ -65,7 +65,7 @@ def on_ui_tabs():
         with gr.Row() as load_row:
             image = gr.Image(elem_id="image",type="pil")
         with gr.Row():
-            with gr.Column(scale=7,min_width=790):
+            with gr.Column(scale=7,min_width=750):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1,min_width=55):
                 next_button = gr.Button(value='Next', variant="primary", elem_id="next_button")
