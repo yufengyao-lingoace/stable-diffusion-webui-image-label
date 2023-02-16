@@ -71,6 +71,8 @@ def on_ui_tabs():
                 next_button = gr.Button(value='Next', variant="primary", elem_id="next_button")
             with gr.Column(scale=1,min_width=60):
                 previous_button = gr.Button(value='Previous', variant="primary", elem_id="previous_button")
+            with gr.Column(scale=1,min_width=60):
+                pass_button = gr.Button(value='Pass', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
         load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
