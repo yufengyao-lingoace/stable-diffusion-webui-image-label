@@ -32,9 +32,10 @@ def do_save(file_name,prompt,dataset_name,user_name):
         result[file_name]=prompt
         json.dump(result,w)
     history[user_name]["data"].append("{0}/{1}".format(dataset_name,file_name))#保存历史
+    history[user_name]["index"]+=1
     #取下一张
     img_file = data_sets[dataset_name].pop()
-    history[user_name]["index"]+=1
+    
     return img_file,os.path.basename(img_file) 
 
 def do_pass(file_name,dataset_name,user_name):
@@ -50,7 +51,8 @@ def do_pass(file_name,dataset_name,user_name):
 def do_last(file_name,dataset_name,user_name):
     #保存
     label_changed=False
-    index=history[user_name]["index"]
+    index=history[user_name]["index"]-1
+    index=0 if index<0 else index
     img_file=history[user_name]["data"][index] # tigo/1.jpg
     img_file=os.path.join(data_folder,img_file)
     history[user_name]["index"]-=1
