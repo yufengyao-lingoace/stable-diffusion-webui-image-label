@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import gradio as gr
 from modules import shared, script_callbacks
 import torch
@@ -12,6 +13,7 @@ data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-im
 data_sets={} # 数据集实体{tigo:[],img:[]}
 label_set={} #{tigo:{1.jpg:tigo on the hill}}
 label_folders=[] #数据集名称 [tigo,img]
+label_changed=False #标注内容是否变化
 
 def save_label():
     pass
@@ -20,7 +22,14 @@ def do_save(file_name,prompt,dataset_name,user_name):
     #保存
     # print(label_set[dataset_name])
     label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
-    print(label_set)
+    label_changed=True
+    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+        writer.write(file_name+'\r\n')
+    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r+') as reader:
+        result=json.load(reader)
+        result[file_name]=prompt
+        json.dump(result,reader)
+
     #取下一张
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
@@ -68,7 +77,7 @@ def on_ui_tabs():
             with gr.Column(scale=7,min_width=750):
                 prompt = gr.Textbox(label="Prompt", elem_id="txt_prompt", show_label=False, lines=3, placeholder="Prompt (press Enter to save and jump to next)")
             with gr.Column(scale=1,min_width=60):
-                next_button = gr.Button(value='Next', variant="primary", elem_id="next_button")
+                next_button = gr.Button(value='Save', variant="primary", elem_id="next_button")
             with gr.Column(scale=1,min_width=60):
                 previous_button = gr.Button(value='Previous', variant="primary", elem_id="previous_button")
             with gr.Column(scale=1,min_width=60):
