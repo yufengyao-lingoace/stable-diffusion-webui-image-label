@@ -51,8 +51,16 @@ def do_load(dataset_name):
         label_images = [os.path.join(img_folder, f) for f in files]
         data_sets[dataset_name]=label_images
     img_file = data_sets[dataset_name].pop()
+    img_file_name=os.path.basename(img_file)
 
-    return img_file,os.path.basename(img_file) 
+    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+        result=json.load(reader)
+    if img_file_name in result.keys():
+        prompt_txt=img_file_name[img_file_name]
+    else:
+        prompt_txt=""
+
+    return img_file,img_file_name,prompt_txt
 
 
 def on_ui_tabs():
@@ -93,7 +101,7 @@ def on_ui_tabs():
             with gr.Column(scale=1,min_width=60):
                 pass_button = gr.Button(value='Pass', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
-        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
+        load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label,prompt])
         pass_button.click(fn=do_pass, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
