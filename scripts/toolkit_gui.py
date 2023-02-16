@@ -35,7 +35,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
     img_file = data_sets[dataset_name].pop()
     return img_file,os.path.basename(img_file) 
 
-def do_pass(file_name,prompt,dataset_name,user_name):
+def do_pass(file_name,dataset_name,user_name):
     #保存
     label_changed=False
     file_name=file_name["label"]
@@ -94,7 +94,7 @@ def on_ui_tabs():
                 pass_button = gr.Button(value='Pass', variant="primary", elem_id="pass_button")
         next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
         load_button.click(fn=do_load, inputs=dataset_dropdown, outputs=[image,label])
-        pass_button.click(fn=do_pass, inputs=dataset_dropdown, outputs=[image,label])
+        pass_button.click(fn=do_pass, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label])
         # comp_dropdown.change(fn=do_select,inputs=None,outputs=None)
 
     return (image_label, "Label", "image_label"),
