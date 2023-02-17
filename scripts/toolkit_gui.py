@@ -77,11 +77,10 @@ def do_pass(file_name,dataset_name,user_name): #下一个
 
 def do_last(file_name,dataset_name,user_name):
     index=history[user_name]["index"]-1
+    print("index:{0}".format(index))
     index=0 if index<0 else index
     img_file=history[user_name]["data"][index] # tigo/1.jpg
     img_file=os.path.join(data_folder,img_file)
-    history[user_name]["index"]-=1
-
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
         result=json.load(reader)
     img_file_name=os.path.basename(img_file)
@@ -89,6 +88,7 @@ def do_last(file_name,dataset_name,user_name):
         prompt_txt=result[img_file_name]
     else:
         prompt_txt=""
+    history[user_name]["index"]-=1
     return img_file,img_file_name,prompt_txt
 
 def do_load(dataset_name,user_name):
