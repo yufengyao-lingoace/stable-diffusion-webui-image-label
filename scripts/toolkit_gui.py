@@ -33,7 +33,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
         json.dump(result,w)
     #取新样本
     index=history[user_name]["index"]
-    if index<=len(history[user_name]["data"]):
+    if index>0 and index<=len(history[user_name]["data"]):
         img_file=history[user_name]["data"][index]
         img_file=os.path.join(data_folder,img_file)
         img_file_name=os.path.basename(img_file)
@@ -57,7 +57,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
 def do_pass(file_name,dataset_name,user_name): #下一个
     file_name=file_name["label"]
     index=history[user_name]["index"]
-    if index<=len(history[user_name]["data"]):
+    if index >0 and index<=len(history[user_name]["data"]):
         img_file=history[user_name]["data"][index]
         img_file=os.path.join(data_folder,img_file)
         img_file_name=os.path.basename(img_file)
