@@ -20,37 +20,40 @@ def save_label():
     pass
 
 def do_save(file_name,prompt,dataset_name,user_name):
-    # label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
-    file_name=file_name["label"]
-    
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
-        writer.write(file_name+'\r\n')
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
-        result=json.load(reader)
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
-        result[file_name]=prompt
-        json.dump(result,w)
-
-    #取新样本
-    index=history[user_name]["index"]+1
-    if index>=0 and index<=len(history[user_name]["data"])-1:
-        img_file=history[user_name]["data"][index]
-        img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
-        img_file_name=os.path.basename(img_file) #1.jpg
-        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
-            result=json.load(reader)
-        # print(img_file_name)
-        # print(result)
-        if img_file_name in result.keys():
-            prompt_txt=result[img_file_name]
-            # print("prompt:{0}".format(prompt_txt))
-        else:
-            prompt_txt=""
-    else:
+    try:
+        # label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
+        file_name=file_name["label"]
+        
         with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
             writer.write(file_name+'\r\n')
-        img_file = data_sets[dataset_name].pop()
-        prompt_txt=""
+        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+            result=json.load(reader)
+        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
+            result[file_name]=prompt
+            json.dump(result,w)
+
+        #取新样本
+        index=history[user_name]["index"]+1
+        if index>=0 and index<=len(history[user_name]["data"])-1:
+            img_file=history[user_name]["data"][index]
+            img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
+            img_file_name=os.path.basename(img_file) #1.jpg
+            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+                result=json.load(reader)
+            # print(img_file_name)
+            # print(result)
+            if img_file_name in result.keys():
+                prompt_txt=result[img_file_name]
+                # print("prompt:{0}".format(prompt_txt))
+            else:
+                prompt_txt=""
+        else:
+            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+                writer.write(file_name+'\r\n')
+            img_file = data_sets[dataset_name].pop()
+            prompt_txt=""
+    except:
+        pass
     history_item="{0}/{1}".format(dataset_name,file_name)
     if history_item not in history[user_name]["data"]:
         history[user_name]["data"].append(history_item)#保存历史
@@ -59,24 +62,27 @@ def do_save(file_name,prompt,dataset_name,user_name):
     return img_file,os.path.basename(img_file),prompt_txt
 
 def do_pass(file_name,dataset_name,user_name): #下一个
-    file_name=file_name["label"]
-    #取新样本
-    index=history[user_name]["index"]+1
-    if index >=0 and index<=len(history[user_name]["data"])-1:
-        img_file=history[user_name]["data"][index] #tigo/1.jpg
-        img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
-        img_file_name=os.path.basename(img_file) #1.jpg
-        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
-            result=json.load(reader)
-        if img_file_name in result.keys():
-            prompt_txt=result[img_file_name]
+    try:
+        file_name=file_name["label"]
+        #取新样本
+        index=history[user_name]["index"]+1
+        if index >=0 and index<=len(history[user_name]["data"])-1:
+            img_file=history[user_name]["data"][index] #tigo/1.jpg
+            img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
+            img_file_name=os.path.basename(img_file) #1.jpg
+            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+                result=json.load(reader)
+            if img_file_name in result.keys():
+                prompt_txt=result[img_file_name]
+            else:
+                prompt_txt=""
         else:
+            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+                writer.write(file_name+'\r\n')
+            img_file = data_sets[dataset_name].pop()
             prompt_txt=""
-    else:
-        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
-            writer.write(file_name+'\r\n')
-        img_file = data_sets[dataset_name].pop()
-        prompt_txt=""
+    except:
+        pass
     history_item="{0}/{1}".format(dataset_name,file_name)
     if history_item not in history[user_name]["data"]:
         history[user_name]["data"].append(history_item)#保存历史
