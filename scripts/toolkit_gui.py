@@ -10,6 +10,8 @@ import cv2
 from toolkit import *
 
 data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data" #/data文件夹
+json_file="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json"
+finished_file="/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt"
 data_sets={} # 数据集实体{tigo:[],img:[]}
 # label_set={} #{tigo:{1.jpg:tigo on the hill}}
 label_folders=[] #数据集名称 [tigo,img]
@@ -23,12 +25,11 @@ def do_save(file_name,prompt,dataset_name,user_name):
     try:
         # label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
         file_name=file_name["label"]
-        
-        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+        with open(finished_file,'a') as writer:
             writer.write(file_name+'\r\n')
-        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+        with open(json_file,'r') as reader:
             result=json.load(reader)
-        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
+        with open(json_file,'w') as w:
             result[file_name]=prompt
             json.dump(result,w)
 
@@ -38,7 +39,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
             img_file=history[user_name]["data"][index]
             img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
             img_file_name=os.path.basename(img_file) #1.jpg
-            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+            with open(json_file,'r') as reader:
                 result=json.load(reader)
             # print(img_file_name)
             # print(result)
@@ -48,7 +49,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
             else:
                 prompt_txt=""
         else:
-            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+            with open(finished_file,'a') as writer:
                 writer.write(file_name+'\r\n')
             img_file = data_sets[dataset_name].pop()
             prompt_txt=""
@@ -70,14 +71,14 @@ def do_pass(file_name,dataset_name,user_name): #下一个
             img_file=history[user_name]["data"][index] #tigo/1.jpg
             img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
             img_file_name=os.path.basename(img_file) #1.jpg
-            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+            with open(json_file,'r') as reader:
                 result=json.load(reader)
             if img_file_name in result.keys():
                 prompt_txt=result[img_file_name]
             else:
                 prompt_txt=""
         else:
-            with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+            with open(finished_file,'a') as writer:
                 writer.write(file_name+'\r\n')
             img_file = data_sets[dataset_name].pop()
             prompt_txt=""
@@ -95,7 +96,7 @@ def do_last(file_name,dataset_name,user_name): #上一个
     print("index:{0},len:{1}".format(index,len(history[user_name]["data"])))
     img_file=history[user_name]["data"][index] # tigo/1.jpg
     img_file=os.path.join(data_folder,img_file)
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+    with open(json_file,'r') as reader:
         result=json.load(reader)
     img_file_name=os.path.basename(img_file)
     if img_file_name in result.keys():
@@ -117,7 +118,7 @@ def do_load(dataset_name,user_name): #上一个
     img_file = data_sets[dataset_name].pop()
     img_file_name=os.path.basename(img_file)
 
-    with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+    with open(json_file,'r') as reader:
         result=json.load(reader)
     if img_file_name in result.keys():
         # print(result)
