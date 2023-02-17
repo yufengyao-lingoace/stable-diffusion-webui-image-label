@@ -39,11 +39,11 @@ def do_save(file_name,prompt,dataset_name,user_name):
         img_file_name=os.path.basename(img_file) #1.jpg
         with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
             result=json.load(reader)
-        print(img_file_name)
-        print(result)
+        # print(img_file_name)
+        # print(result)
         if img_file_name in result.keys():
             prompt_txt=result[img_file_name]
-            print("prompt:{0}".format(prompt_txt))
+            # print("prompt:{0}".format(prompt_txt))
         else:
             prompt_txt=""
     else:
@@ -156,7 +156,7 @@ def on_ui_tabs():
                 last_button = gr.Button(value='上一个', variant="primary", elem_id="previous_button")
             with gr.Column(scale=1,min_width=60):
                 pass_button = gr.Button(value='下一个', variant="primary", elem_id="pass_button")
-        next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label])
+        next_button.click(fn=do_save, inputs=[label,prompt,dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
         load_button.click(fn=do_load, inputs=[dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
         pass_button.click(fn=do_pass, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
         last_button.click(fn=do_last, inputs=[label,dataset_dropdown,user_dropdown], outputs=[image,label,prompt])
