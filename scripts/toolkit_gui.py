@@ -31,12 +31,28 @@ def do_save(file_name,prompt,dataset_name,user_name):
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
         result[file_name]=prompt
         json.dump(result,w)
+    #取新样本
+    index=history[user_name]["index"]
+    if index<=len(history[user_name]["data"]):
+        img_file=history[user_name]["data"][index]
+        img_file=os.path.join(data_folder,img_file)
+        img_file_name=os.path.basename(img_file)
+        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
+            result=json.load(reader)
+        if img_file_name in result.keys():
+            prompt_txt=result[img_file_name]
+        else:
+            prompt_txt=""
+    else:
+        with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
+            writer.write(file_name+'\r\n')
+        img_file = data_sets[dataset_name].pop()
+        prompt_txt=""
     history[user_name]["data"].append("{0}/{1}".format(dataset_name,file_name))#保存历史
     history[user_name]["index"]+=1
     #取下一张
     img_file = data_sets[dataset_name].pop()
-    
-    return img_file,os.path.basename(img_file) 
+    return img_file,os.path.basename(img_file),prompt_txt
 
 def do_pass(file_name,dataset_name,user_name): #下一个
     file_name=file_name["label"]
@@ -55,8 +71,8 @@ def do_pass(file_name,dataset_name,user_name): #下一个
         with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
             writer.write(file_name+'\r\n')
         img_file = data_sets[dataset_name].pop()
-        history[user_name]["index"]+=1
         prompt_txt=""
+    history[user_name]["index"]+=1
     return img_file,os.path.basename(img_file) ,prompt_txt
 
 def do_last(file_name,dataset_name,user_name):
