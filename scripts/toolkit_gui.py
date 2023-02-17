@@ -43,6 +43,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
         print(result)
         if img_file_name in result.keys():
             prompt_txt=result[img_file_name]
+            print("prompt:{0}".format(prompt_txt))
         else:
             prompt_txt=""
     else:
