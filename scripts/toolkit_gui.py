@@ -53,12 +53,12 @@ def do_save(file_name,prompt,dataset_name,user_name):
                 writer.write(file_name+'\r\n')
             img_file = data_sets[dataset_name].pop()
             prompt_txt=""
-        history_item="{0}/{1}".format(dataset_name,file_name)
-        if history_item not in history[user_name]["data"]:
-            history[user_name]["data"].append(history_item)#保存历史
-        history[user_name]["index"]+=1
     except:
         pass
+    history_item="{0}/{1}".format(dataset_name,file_name)
+    if history_item not in history[user_name]["data"]:
+        history[user_name]["data"].append(history_item)#保存历史
+    history[user_name]["index"]+=1
 
     return img_file,os.path.basename(img_file),prompt_txt
 
@@ -82,13 +82,12 @@ def do_pass(file_name,dataset_name,user_name): #下一个
                 writer.write(file_name+'\r\n')
             img_file = data_sets[dataset_name].pop()
             prompt_txt=""
-        history_item="{0}/{1}".format(dataset_name,file_name)
-        if history_item not in history[user_name]["data"]:
-            # print(history_item)
-            history[user_name]["data"].append(history_item)#保存历史
         history[user_name]["index"]+=1
     except:
         pass
+    history_item="{0}/{1}".format(dataset_name,file_name)
+    if history_item not in history[user_name]["data"]:
+        history[user_name]["data"].append(history_item)#保存历史
     
     return img_file,os.path.basename(img_file) ,prompt_txt
 
@@ -106,11 +105,10 @@ def do_last(file_name,dataset_name,user_name): #上一个
             prompt_txt=result[img_file_name]
         else:
             prompt_txt=""
-        history[user_name]["index"]-=1
-        history[user_name]["index"]=0 if history[user_name]["index"]<0 else history[user_name]["index"]
     except:
         pass
-    
+    history[user_name]["index"]-=1
+    history[user_name]["index"]=0 if history[user_name]["index"]<0 else history[user_name]["index"]
     return img_file,img_file_name,prompt_txt
 
 def do_load(dataset_name,user_name): #加载
