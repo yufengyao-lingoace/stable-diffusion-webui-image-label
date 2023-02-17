@@ -89,7 +89,7 @@ def do_pass(file_name,dataset_name,user_name): #下一个
     history[user_name]["index"]+=1
     return img_file,os.path.basename(img_file) ,prompt_txt
 
-def do_last(file_name,dataset_name,user_name):
+def do_last(file_name,dataset_name,user_name): #上一个
     index=history[user_name]["index"]-1
     index=0 if index<0 else index
     print("index:{0},len:{1}".format(index,len(history[user_name]["data"])))
@@ -106,7 +106,7 @@ def do_last(file_name,dataset_name,user_name):
     history[user_name]["index"]=0 if history[user_name]["index"]<0 else history[user_name]["index"]
     return img_file,img_file_name,prompt_txt
 
-def do_load(dataset_name,user_name):
+def do_load(dataset_name,user_name): #上一个
     if not dataset_name in data_sets.keys():
         img_folder=os.path.join(data_folder,dataset_name)
         files = os.listdir(img_folder) #枚举单个数据集中的所有图片
