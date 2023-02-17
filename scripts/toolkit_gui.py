@@ -78,6 +78,7 @@ def do_pass(file_name,dataset_name,user_name): #下一个
 def do_last(file_name,dataset_name,user_name):
     index=history[user_name]["index"]-1
     index=0 if index<0 else index
+    print("index:{0},len:{1}".format(index,len(history[user_name]["data"])))
     img_file=history[user_name]["data"][index] # tigo/1.jpg
     img_file=os.path.join(data_folder,img_file)
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
