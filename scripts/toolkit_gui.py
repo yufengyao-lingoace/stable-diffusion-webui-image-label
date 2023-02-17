@@ -56,7 +56,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
 
 def do_pass(file_name,dataset_name,user_name): #下一个
     file_name=file_name["label"]
-    index=history[user_name]["index"]
+    index=history[user_name]["index"]+1
     if index >0 and index<=len(history[user_name]["data"])-1:
         img_file=history[user_name]["data"][index]
         img_file=os.path.join(data_folder,img_file)
