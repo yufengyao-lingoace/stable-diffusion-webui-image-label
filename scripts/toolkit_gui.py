@@ -48,8 +48,7 @@ def do_save(file_name,prompt,dataset_name,user_name):
         prompt_txt=""
     history[user_name]["data"].append("{0}/{1}".format(dataset_name,file_name))#保存历史
     history[user_name]["index"]+=1
-    #取下一张
-    img_file = data_sets[dataset_name].pop()
+
     return img_file,os.path.basename(img_file),prompt_txt
 
 def do_pass(file_name,dataset_name,user_name): #下一个
