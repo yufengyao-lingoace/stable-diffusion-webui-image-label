@@ -11,7 +11,7 @@ from toolkit import *
 
 data_folder = "/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data" #/data文件夹
 data_sets={} # 数据集实体{tigo:[],img:[]}
-label_set={} #{tigo:{1.jpg:tigo on the hill}}
+# label_set={} #{tigo:{1.jpg:tigo on the hill}}
 label_folders=[] #数据集名称 [tigo,img]
 label_changed=False #标注内容是否变化
 history={} #历史记录
@@ -20,8 +20,9 @@ def save_label():
     pass
 
 def do_save(file_name,prompt,dataset_name,user_name):
-    label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
+    # label_set[dataset_name].append("{0}:{1}".format(file_name,prompt))
     file_name=file_name["label"]
+    
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/finished.txt",'a') as writer:
         writer.write(file_name+'\r\n')
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
@@ -29,14 +30,17 @@ def do_save(file_name,prompt,dataset_name,user_name):
     with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'w') as w:
         result[file_name]=prompt
         json.dump(result,w)
+
     #取新样本
     index=history[user_name]["index"]+1
     if index>=0 and index<=len(history[user_name]["data"])-1:
         img_file=history[user_name]["data"][index]
-        img_file=os.path.join(data_folder,img_file)
-        img_file_name=os.path.basename(img_file)
+        img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
+        img_file_name=os.path.basename(img_file) #1.jpg
         with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
             result=json.load(reader)
+        print(img_file_name)
+        print(result)
         if img_file_name in result.keys():
             prompt_txt=result[img_file_name]
         else:
@@ -126,8 +130,8 @@ def on_ui_tabs():
     for root, dirs, files in os.walk(data_folder):
         if len(dirs)>0:
             label_folders=dirs
-            for dir in dirs:
-                label_set[dir]=[] #{tigo:[],img:[]}  标记集初始化
+            # for dir in dirs:
+            #     label_set[dir]=[] #{tigo:[],img:[]}  标记集初始化
 
     with gr.Blocks(css=css, analytics_enabled=False, variant="compact") as image_label:
         gr.HTML(value=f"<style>{css}</style>")
