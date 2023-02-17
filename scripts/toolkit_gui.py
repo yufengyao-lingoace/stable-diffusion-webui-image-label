@@ -77,7 +77,6 @@ def do_pass(file_name,dataset_name,user_name): #下一个
 
 def do_last(file_name,dataset_name,user_name):
     index=history[user_name]["index"]-1
-    # print("index:{0}".format(index))
     index=0 if index<0 else index
     img_file=history[user_name]["data"][index] # tigo/1.jpg
     img_file=os.path.join(data_folder,img_file)
