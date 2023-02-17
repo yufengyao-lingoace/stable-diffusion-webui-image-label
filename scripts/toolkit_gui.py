@@ -53,12 +53,12 @@ def do_save(file_name,prompt,dataset_name,user_name):
                 writer.write(file_name+'\r\n')
             img_file = data_sets[dataset_name].pop()
             prompt_txt=""
+        history[user_name]["index"]+=1
     except:
         pass
     history_item="{0}/{1}".format(dataset_name,file_name)
     if history_item not in history[user_name]["data"]:
         history[user_name]["data"].append(history_item)#保存历史
-    history[user_name]["index"]+=1
 
     return img_file,os.path.basename(img_file),prompt_txt
 
