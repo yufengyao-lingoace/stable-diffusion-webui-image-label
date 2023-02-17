@@ -61,9 +61,9 @@ def do_pass(file_name,dataset_name,user_name): #下一个
     #取新样本
     index=history[user_name]["index"]+1
     if index >=0 and index<=len(history[user_name]["data"])-1:
-        img_file=history[user_name]["data"][index]
-        img_file=os.path.join(data_folder,img_file)
-        img_file_name=os.path.basename(img_file)
+        img_file=history[user_name]["data"][index] #tigo/1.jpg
+        img_file=os.path.join(data_folder,img_file) #.../data/tigo/1.jpg
+        img_file_name=os.path.basename(img_file) #1.jpg
         with open("/data/stable-diffusion-webui/extensions/stable-diffusion-webui-image-label/data/label.json",'r') as reader:
             result=json.load(reader)
         if img_file_name in result.keys():
